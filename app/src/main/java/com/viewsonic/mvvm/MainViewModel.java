@@ -1,6 +1,5 @@
 package com.viewsonic.mvvm;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.databinding.ObservableBoolean;
@@ -9,11 +8,16 @@ import androidx.lifecycle.ViewModel;
 
 public class MainViewModel extends ViewModel {
 
-	Context mContext;
-
 	public ObservableField<String> mData = new ObservableField<>();
 	public ObservableBoolean isLoading = new ObservableBoolean(false);
 	DataModel dataModel = new DataModel();
+
+	String version;
+
+	MainViewModel(String version) {
+		super();
+		this.version = version;
+	}
 
 	public void refresh() {
 		isLoading.set(true);

@@ -17,9 +17,10 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-		mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+
+		MainViewModelFactory factory = new MainViewModelFactory("1.0");
+		mainViewModel = ViewModelProviders.of(this, factory).get(MainViewModel.class);
 		binding.setMainViewModel(mainViewModel);
 
 		binding.btnRefresh.setOnClickListener(new View.OnClickListener() {
