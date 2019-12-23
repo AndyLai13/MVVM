@@ -1,22 +1,28 @@
 package com.viewsonic.mvvm;
 
 import android.content.Context;
-import android.widget.Toast;
+import android.util.Log;
 
-public class MainViewModel {
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.ViewModel;
+
+public class MainViewModel extends ViewModel {
 
 	Context mContext;
-	MainViewModel(Context context) {
-		mContext = context;
-	}
 
+	public ObservableField<String> mData = new ObservableField<>();
+	public ObservableBoolean isLoading = new ObservableBoolean(false);
 	DataModel dataModel = new DataModel();
 
 	public void refresh() {
+		isLoading.set(true);
 		dataModel.retrieveData(new DataModel.onDataReadyCallback() {
 			@Override
 			public void onDataReady(String data) {
-				Toast.makeText(mContext, "data = " + data, Toast.LENGTH_SHORT).show();
+				Log.d("Andy", "data = " + data);
+				mData.set(data);
+				isLoading.set(false);
 			}
 		});
 	}
